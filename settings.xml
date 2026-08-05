@@ -9,7 +9,7 @@
         <column id="-3" capacity="3" label="-3"/>
         <column id="-2" capacity="4" label="-2"/>
         <column id="-1" capacity="5" label="-1"/>
-        <column id="0" capacity="6" label="0&#10;Neutral / Unsure"/>
+        <column id="0" capacity="8" label="0&#10;Neutral / Unsure"/>
         <column id="1" capacity="5" label="+1"/>
         <column id="2" capacity="4" label="+2"/>
         <column id="3" capacity="3" label="+3"/>
