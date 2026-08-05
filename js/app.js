@@ -56,17 +56,18 @@ function startGridSort() {
 }
 
 function buildGrid() {
-    // 1. Render Card Pool (Sandbox)
+    // 1. Render Card Pool
     var poolHTML = '<div class="card-pool-wrapper"><h3>Your Stage 1 Sorted Cards (Sandbox)</h3>' +
-                   '<p><em>Click any card to select it, then click a column to place it. Click a placed card to send it back here!</em></p>' +
-                   '<div id="card-pool" onclick="returnToPool(event)">';
+                   '<p><em>Click a card to select it (highlighted orange), then click any column below to place it. To move a card back here, click the <strong>✕</strong> on the card.</em></p>' +
+                   '<div id="card-pool">';
     
     var cardId = 0;
     ['disagree', 'neutral', 'agree'].forEach(function(bin) {
         var label = bin === 'disagree' ? 'UNLIKE' : (bin === 'neutral' ? 'NEUTRAL' : 'LIKE');
         roughBins[bin].forEach(function(text) {
             cardId++;
-            poolHTML += '<div class="pool-card bin-' + bin + '" id="card-' + cardId + '" onclick="selectCard(event, this)">' +
+            poolHTML += '<div class="pool-card bin-' + bin + '" id="card-' + cardId + '">' +
+                        '<span class="remove-btn" onclick="returnCardToPool(event, this)">✕</span>' +
                         '<span class="tag">' + label + '</span> ' + text + '</div>';
         });
     });
@@ -78,7 +79,7 @@ function buildGrid() {
         { id: '-3', cap: 3 },
         { id: '-2', cap: 4 },
         { id: '-1', cap: 5 },
-        { id: '0', cap: 8 }, // Updated to 8 for 36 cards
+        { id: '0', cap: 8 },
         { id: '+1', cap: 5 },
         { id: '+2', cap: 4 },
         { id: '+3', cap: 3 },
@@ -87,7 +88,7 @@ function buildGrid() {
 
     var gridHTML = '<div class="grid-layout">';
     cols.forEach(function(col) {
-        gridHTML += '<div class="grid-col" data-col="' + col.id + '" data-cap="' + col.cap + '" onclick="placeSelectedCard(this)">' +
+        gridHTML += '<div class="grid-col" data-col="' + col.id + '" data-cap="' + col.cap + '">' +
                     '<div class="col-header">' + col.id + '<br><small>(' + col.cap + ' max)</small></div>' +
                     '<div class="col-cards"></div>' +
                     '</div>';
@@ -96,48 +97,54 @@ function buildGrid() {
 
     $('#grid-container').html(poolHTML + gridHTML);
     $('#btn-to-survey').removeClass('hidden');
+
+    // Attach Event Handlers
+    attachHandlers();
 }
 
-// Select or unselect a card
-function selectCard(event, elem) {
-    event.stopPropagation(); // Prevents clicking card from triggering column click
-    
-    if (selectedCard && selectedCard[0] === elem) {
-        // If clicking the already selected card, deselect it
-        $(elem).removeClass('selected');
-        selectedCard = null;
-    } else {
-        $('.pool-card').removeClass('selected');
-        selectedCard = $(elem);
-        selectedCard.addClass('selected');
-    }
-}
+function attachHandlers() {
+    // Card selection handler
+    $(document).off('click', '.pool-card').on('click', '.pool-card', function(e) {
+        e.stopPropagation();
+        
+        if ($(this).hasClass('selected')) {
+            $(this).removeClass('selected');
+            selectedCard = null;
+        } else {
+            $('.pool-card').removeClass('selected');
+            selectedCard = $(this);
+            selectedCard.addClass('selected');
+        }
+    });
 
-// Place selected card into a grid column
-function placeSelectedCard(colElem) {
-    if (!selectedCard) return;
-    
-    var colCards = $(colElem).find('.col-cards');
-    var maxCap = parseInt($(colElem).attr('data-cap'));
-    
-    // Check if column is already full
-    if (colCards.children().length >= maxCap && !$.contains(colElem, selectedCard[0])) {
-        alert("This column is full! Max capacity for column " + $(colElem).attr('data-col') + " is " + maxCap + " cards.");
-        return;
-    }
+    // Column click handler to place selected card
+    $(document).off('click', '.grid-col').on('click', '.grid-col', function(e) {
+        if (!selectedCard) return;
 
-    colCards.append(selectedCard);
-    selectedCard.removeClass('selected');
-    selectedCard = null;
-}
+        var colCards = $(this).find('.col-cards');
+        var maxCap = parseInt($(this).attr('data-cap'));
 
-// Return a selected card back to the sandbox pool
-function returnToPool(event) {
-    if (selectedCard && !$.contains($('#card-pool')[0], selectedCard[0])) {
-        $('#card-pool').append(selectedCard);
+        // If card is already in this column, do nothing
+        if ($.contains(this, selectedCard[0])) return;
+
+        if (colCards.children().length >= maxCap) {
+            alert("This column is full! Max capacity for column " + $(this).attr('data-col') + " is " + maxCap + " cards.");
+            return;
+        }
+
+        colCards.append(selectedCard);
         selectedCard.removeClass('selected');
         selectedCard = null;
-    }
+    });
+}
+
+// Return a card directly to the Sandbox pool when ✕ is clicked
+function returnCardToPool(event, btnElem) {
+    event.stopPropagation();
+    var card = $(btnElem).closest('.pool-card');
+    card.removeClass('selected');
+    $('#card-pool').append(card);
+    selectedCard = null;
 }
 
 function goToSurvey() {
