@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+    <title>Quantifying Pedagogical Camouflage in Higher Education</title>
+    <author>Danielle N. Gray-Singh, Ph.D.</author>
+    <email>dgray-singh@cau.edu</email>
+
+    <grid>
+        <column id="-4" capacity="2" label="-4&#10;Least Like My Experience"/>
+        <column id="-3" capacity="3" label="-3"/>
+        <column id="-2" capacity="4" label="-2"/>
+        <column id="-1" capacity="5" label="-1"/>
+        <column id="0" capacity="6" label="0&#10;Neutral / Unsure"/>
+        <column id="1" capacity="5" label="+1"/>
+        <column id="2" capacity="4" label="+2"/>
+        <column id="3" capacity="3" label="+3"/>
+        <column id="4" capacity="2" label="+4&#10;Most Like My Experience"/>
+    </grid>
+
+    <statements>
+        <statement id="1">True learning requires grappling with unscripted ambiguity that cannot be captured by a standardized rubric.</statement>
+        <statement id="2">I deliberately design assignments where initial student failure is an essential step toward conceptual breakthrough.</statement>
+        <statement id="3">Creative insight in my discipline emerges from non-linear, messy synthesis that resists algorithmic evaluation.</statement>
+        <statement id="4">I intentionally rephrase experimental teaching ideas into corporate jargon (e.g., 'applied learning') to pass curriculum review.</statement>
+        <statement id="5">I describe open-ended classroom exploration as 'measurable skill acquisition' on official course documents to avoid scrutiny.</statement>
+        <statement id="6">I align my assignment rubrics with institutional assessment metrics even when I know they flatten critical student thinking.</statement>
+        <statement id="7">I encourage students to challenge core disciplinary assumptions, even if it derails the planned lesson schedule.</statement>
+        <statement id="8">I use institutional buzzwords in my syllabi primarily to signal compliance to department chairs and deans.</statement>
+        <statement id="9">Generative AI tools are best used to streamline student output to meet standardized workplace deliverables.</statement>
+        <statement id="10">Over-reliance on AI drafting tools risks smoothing away the idiosyncratic, divergent friction essential to human thought.</statement>
+        <statement id="11">I structure my syllabus around deep conceptual questions rather than granular, auditable learning outcomes.</statement>
+        <statement id="12">I enforce strict adherence to rubric criteria to protect my course evaluations from student appeals.</statement>
+        <statement id="13">In laboratory or seminar sessions, I prioritize productive tangents over rigid coverage of content modules.</statement>
+        <statement id="14">I frame creative cross-disciplinary assignments under safe, established labels like 'interdisciplinary synthesis.'</statement>
+        <statement id="15">Standardized rubrics provide the only objective and equitable basis for evaluating student work across diverse cohorts.</statement>
+        <statement id="16">Evaluating student creativity requires holistic, subjective judgment that cannot be reduced to a numerical point grid.</statement>
+        <statement id="17">I regularly modify course plans mid-semester in response to unanticipated student curiosity and creative detours.</statement>
+        <statement id="18">I censor or downplay high-risk pedagogical experiments unless they are backed by published 'evidence-based' literature.</statement>
+        <statement id="19">Deep pattern recognition in my field requires an imaginative leap that goes beyond systematic data correlation.</statement>
+        <statement id="20">Curricular standardization ensures institutional quality control and protects program accreditation metrics.</statement>
+        <statement id="21">I utilize automated LMS grading tools to manage heavy teaching loads, even if it limits qualitative feedback.</statement>
+        <statement id="22">Rewarding student intellectual risk-taking requires accepting unconventional project formats that violate standard rubrics.</statement>
+        <statement id="23">I explicitly inform students that unscripted discovery is more valuable than arriving at a predetermined 'correct' answer.</statement>
+        <statement id="24">I feel pressure to present my teaching as a series of predictable, scalable steps rather than an organic, evolving process.</statement>
+        <statement id="25">The most profound moments in my teaching occur when both I and my students do not know the exact outcome of an exercise.</statement>
+        <statement id="26">I adopt administrative jargon in grant proposals to maximize funding potential, regardless of actual project execution.</statement>
+        <statement id="27">Detailed learning outcomes and transparent rubrics are essential tools for promoting student equity and clarity.</statement>
+        <statement id="28">Standardized metrics penalize necessary scientific or artistic failure, forcing students into risk-averse compliance.</statement>
+        <statement id="29">I reserve space in my course design for spontaneous student-led inquiry that is completely detached from formal assessment.</statement>
+        <statement id="30">I frame collaborative student play as 'team-based problem solving' to align with institutional career-readiness initiatives.</statement>
+        <statement id="31">AI prompt engineering represents a vital new form of structured, efficient academic literacy.</statement>
+        <statement id="32">True critical thinking is inherently non-algorithmic and cannot be replicated by probabilistic language models.</statement>
+        <statement id="33">I view pedagogical friction and confusion as productive cognitive states rather than instructional failures.</statement>
+        <statement id="34">I align my course learning objectives directly with university-wide strategic planning goals.</statement>
+        <statement id="35">I limit open-ended classroom debate to ensure all mandated curriculum content is covered before final exams.</statement>
+        <statement id="36">I prioritize process portfolios (showing drafts and pivots) over polished, convergent final products when assigning grades.</statement>
+    </statements>
+</config>

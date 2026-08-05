@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quantifying Pedagogical Camouflage - Q-Sort Demo</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <header class="app-header">
+        <h1>Quantifying Pedagogical Camouflage in Higher Education</h1>
+        <p>ISSOTL Grand Challenge 1 — Interactive Q-Methodology Demo</p>
+    </header>
+
+    <main id="app-container">
+        <!-- Stage 0: Instructions -->
+        <section id="step-intro" class="step-card">
+            <h2>Condition of Instruction</h2>
+            <p>Welcome! Below are 36 statements regarding teaching practice, course design, assessment, and institutional language.</p>
+            <p><strong>Task:</strong> Sort these statements based on how closely they reflect your actual pedagogical practices and institutional experiences.</p>
+            <button id="btn-start" onclick="startStudy()">Begin Sorting (Stage 1)</button>
+        </section>
+
+        <!-- Stage 1: Rough Sort (3 Bins) -->
+        <section id="step-rough" class="step-card hidden">
+            <h2>Stage 1: Rough Categorization</h2>
+            <p>Read the card below and place it into one of the three rough categories.</p>
+            
+            <div id="card-deck">
+                <div id="current-card" class="q-card">Loading Statements...</div>
+            </div>
+
+            <div class="rough-bins">
+                <button class="bin bin-disagree" onclick="sortRough(-1)">UNLIKE My Experience</button>
+                <button class="bin bin-neutral" onclick="sortRough(0)">NEUTRAL / Unsure</button>
+                <button class="bin bin-agree" onclick="sortRough(1)">LIKE My Experience</button>
+            </div>
+            <div id="rough-progress">Card <span id="card-num">1</span> of 36</div>
+        </section>
+
+        <!-- Stage 2: Fine Grid Sort -->
+        <section id="step-grid" class="step-card hidden">
+            <h2>Stage 2: Forced Grid Placement</h2>
+            <p>Drag cards into the grid below. Fill the columns from the extreme ends (-4 and +4) inward.</p>
+
+            <div id="grid-container">
+                <!-- Grid columns populate dynamically from settings.xml -->
+            </div>
+
+            <button id="btn-to-survey" class="hidden" onclick="goToSurvey()">Continue to Qualitative Reflections</button>
+        </section>
+
+        <!-- Stage 3: Qualitative Reflection -->
+        <section id="step-survey" class="step-card hidden">
+            <h2>Stage 3: Qualitative Anchoring</h2>
+            
+            <div class="form-group">
+                <label for="q-plus4">Please explain why you placed your two chosen statements under <strong>+4 ("Most Like My Experience")</strong>:</label>
+                <textarea id="q-plus4" rows="4" placeholder="Enter your reflection here..."></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="q-minus4">Please explain why you placed your two chosen statements under <strong>-4 ("Least Like My Experience")</strong>:</label>
+                <textarea id="q-minus4" rows="4" placeholder="Enter your reflection here..."></textarea>
+            </div>
+
+            <button onclick="finishDemo()">Complete Demo</button>
+        </section>
+
+        <!-- Stage 4: Finish Screen -->
+        <section id="step-finish" class="step-card hidden">
+            <h2>Demo Complete!</h2>
+            <p>Thank you for testing the ISSOTL GC-1 Q-Sort Interactive Interface.</p>
+            <p>Your test sort configuration has been processed successfully.</p>
+        </section>
+    </main>
+
+    <script src="js/jquery.min.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
