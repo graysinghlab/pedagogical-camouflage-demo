@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Quantifying Pedagogical Camouflage - Q-Sort Demo</title>
     <link rel="stylesheet" href="css/style.css">
+    <!-- Load jQuery in the head so it is ready before button clicks -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
     <header class="app-header">
@@ -18,7 +20,7 @@
             <h2>Condition of Instruction</h2>
             <p>Welcome! Below are 36 statements regarding teaching practice, course design, assessment, and institutional language.</p>
             <p><strong>Task:</strong> Sort these statements based on how closely they reflect your actual pedagogical practices and institutional experiences.</p>
-            <button id="btn-start" onclick="startStudy()">Begin Sorting (Stage 1)</button>
+            <button id="btn-start" type="button" onclick="startStudy()">Begin Sorting (Stage 1)</button>
         </section>
 
         <!-- Stage 1: Rough Sort (3 Bins) -->
@@ -31,9 +33,9 @@
             </div>
 
             <div class="rough-bins">
-                <button class="bin bin-disagree" onclick="sortRough(-1)">UNLIKE My Experience</button>
-                <button class="bin bin-neutral" onclick="sortRough(0)">NEUTRAL / Unsure</button>
-                <button class="bin bin-agree" onclick="sortRough(1)">LIKE My Experience</button>
+                <button type="button" class="bin bin-disagree" onclick="sortRough(-1)">UNLIKE My Experience</button>
+                <button type="button" class="bin bin-neutral" onclick="sortRough(0)">NEUTRAL / Unsure</button>
+                <button type="button" class="bin bin-agree" onclick="sortRough(1)">LIKE My Experience</button>
             </div>
             <div id="rough-progress">Card <span id="card-num">1</span> of 36</div>
         </section>
@@ -47,7 +49,7 @@
                 <!-- Grid columns populate dynamically from settings.xml -->
             </div>
 
-            <button id="btn-to-survey" class="hidden" onclick="goToSurvey()">Continue to Qualitative Reflections</button>
+            <button id="btn-to-survey" type="button" class="hidden" onclick="goToSurvey()">Continue to Qualitative Reflections</button>
         </section>
 
         <!-- Stage 3: Qualitative Reflection -->
@@ -64,7 +66,7 @@
                 <textarea id="q-minus4" rows="4" placeholder="Enter your reflection here..."></textarea>
             </div>
 
-            <button onclick="finishDemo()">Complete Demo</button>
+            <button type="button" onclick="finishDemo()">Complete Demo</button>
         </section>
 
         <!-- Stage 4: Finish Screen -->
@@ -75,7 +77,6 @@
         </section>
     </main>
 
-    <script src="js/jquery.min.js"></script>
     <script src="js/app.js"></script>
 </body>
 </html>
