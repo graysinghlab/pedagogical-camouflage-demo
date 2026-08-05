@@ -1,6 +1,7 @@
 var statements = [];
 var currentIndex = 0;
 var roughBins = { disagree: [], neutral: [], agree: [] };
+var selectedCard = null;
 
 $(document).ready(function() {
     loadSettings();
@@ -16,16 +17,11 @@ function loadSettings() {
             $(xml).find('statement').each(function() {
                 statements.push($(this).text());
             });
-            console.log("Loaded " + statements.length + " statements.");
-        },
-        error: function(xhr, status, error) {
-            console.log("Error loading settings.xml: " + error);
         }
     });
 }
 
 function startStudy() {
-    // Fallback if settings haven't loaded yet
     if (statements.length === 0) {
         loadSettings();
     }
@@ -40,15 +36,14 @@ function showNextCard() {
         $('#card-num').text(currentIndex + 1);
     } else if (statements.length > 0 && currentIndex >= statements.length) {
         startGridSort();
-    } else {
-        $('#current-card').text("Loading statements... Click 'Begin Sorting' again if needed.");
     }
 }
 
 function sortRough(binType) {
-    if (binType === -1) roughBins.disagree.push(statements[currentIndex]);
-    if (binType === 0) roughBins.neutral.push(statements[currentIndex]);
-    if (binType === 1) roughBins.agree.push(statements[currentIndex]);
+    var cardText = statements[currentIndex];
+    if (binType === -1) roughBins.disagree.push(cardText);
+    if (binType === 0) roughBins.neutral.push(cardText);
+    if (binType === 1) roughBins.agree.push(cardText);
     
     currentIndex++;
     showNextCard();
@@ -61,15 +56,68 @@ function startGridSort() {
 }
 
 function buildGrid() {
-    var cols = ['-4', '-3', '-2', '-1', '0', '+1', '+2', '+3', '+4'];
-    var gridHTML = '';
+    // 1. Render Card Pool from Stage 1
+    var poolHTML = '<div class="card-pool-wrapper"><h3>Your Stage 1 Sorted Cards</h3>' +
+                   '<p><em>Click a card to select it, then click any column below to place it into the grid.</em></p>' +
+                   '<div id="card-pool">';
     
-    cols.forEach(function(col) {
-        gridHTML += '<div class="grid-col"><div class="col-header">' + col + '</div></div>';
+    var cardId = 0;
+    ['disagree', 'neutral', 'agree'].forEach(function(bin) {
+        var label = bin === 'disagree' ? 'UNLIKE' : (bin === 'neutral' ? 'NEUTRAL' : 'LIKE');
+        roughBins[bin].forEach(function(text) {
+            cardId++;
+            poolHTML += '<div class="pool-card bin-' + bin + '" id="card-' + cardId + '" onclick="selectCard(this)">' +
+                        '<span class="tag">' + label + '</span> ' + text + '</div>';
+        });
     });
-    
-    $('#grid-container').html(gridHTML);
+    poolHTML += '</div></div>';
+
+    // 2. Render Forced Grid Columns
+    var cols = [
+        { id: '-4', cap: 2 },
+        { id: '-3', cap: 3 },
+        { id: '-2', cap: 4 },
+        { id: '-1', cap: 5 },
+        { id: '0', cap: 6 },
+        { id: '+1', cap: 5 },
+        { id: '+2', cap: 4 },
+        { id: '+3', cap: 3 },
+        { id: '+4', cap: 2 }
+    ];
+
+    var gridHTML = '<div class="grid-layout">';
+    cols.forEach(function(col) {
+        gridHTML += '<div class="grid-col" data-col="' + col.id + '" data-cap="' + col.cap + '" onclick="placeSelectedCard(this)">' +
+                    '<div class="col-header">' + col.id + '<br><small>(' + col.cap + ' max)</small></div>' +
+                    '<div class="col-cards"></div>' +
+                    '</div>';
+    });
+    gridHTML += '</div>';
+
+    $('#grid-container').html(poolHTML + gridHTML);
     $('#btn-to-survey').removeClass('hidden');
+}
+
+function selectCard(elem) {
+    $('.pool-card').removeClass('selected');
+    selectedCard = $(elem);
+    selectedCard.addClass('selected');
+}
+
+function placeSelectedCard(colElem) {
+    if (!selectedCard) return;
+    
+    var colCards = $(colElem).find('.col-cards');
+    var maxCap = parseInt($(colElem).attr('data-cap'));
+    
+    if (colCards.children().length >= maxCap) {
+        alert("This column is full! Max capacity for column " + $(colElem).attr('data-col') + " is " + maxCap + " cards.");
+        return;
+    }
+
+    colCards.append(selectedCard);
+    selectedCard.removeClass('selected');
+    selectedCard = null;
 }
 
 function goToSurvey() {
