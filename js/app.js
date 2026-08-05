@@ -78,7 +78,7 @@ function buildGrid() {
         { id: '-3', cap: 3 },
         { id: '-2', cap: 4 },
         { id: '-1', cap: 5 },
-        { id: '0', cap: 6 },
+        { id: '0', cap: 8 },
         { id: '+1', cap: 5 },
         { id: '+2', cap: 4 },
         { id: '+3', cap: 3 },
