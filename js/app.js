@@ -1,6 +1,6 @@
-let statements = [];
-let currentIndex = 0;
-let roughBins = { disagree: [], neutral: [], agree: [] };
+var statements = [];
+var currentIndex = 0;
+var roughBins = { disagree: [], neutral: [], agree: [] };
 
 $(document).ready(function() {
     loadSettings();
@@ -12,29 +12,36 @@ function loadSettings() {
         url: "settings.xml",
         dataType: "xml",
         success: function(xml) {
+            statements = [];
             $(xml).find('statement').each(function() {
                 statements.push($(this).text());
             });
             console.log("Loaded " + statements.length + " statements.");
         },
-        error: function() {
-            console.log("Error loading settings.xml");
+        error: function(xhr, status, error) {
+            console.log("Error loading settings.xml: " + error);
         }
     });
 }
 
 function startStudy() {
+    // Fallback if settings haven't loaded yet
+    if (statements.length === 0) {
+        loadSettings();
+    }
     $('#step-intro').addClass('hidden');
     $('#step-rough').removeClass('hidden');
     showNextCard();
 }
 
 function showNextCard() {
-    if (currentIndex < statements.length) {
+    if (statements.length > 0 && currentIndex < statements.length) {
         $('#current-card').text(statements[currentIndex]);
         $('#card-num').text(currentIndex + 1);
-    } else {
+    } else if (statements.length > 0 && currentIndex >= statements.length) {
         startGridSort();
+    } else {
+        $('#current-card').text("Loading statements... Click 'Begin Sorting' again if needed.");
     }
 }
 
@@ -54,11 +61,11 @@ function startGridSort() {
 }
 
 function buildGrid() {
-    const cols = ['-4', '-3', '-2', '-1', '0', '+1', '+2', '+3', '+4'];
-    let gridHTML = '';
+    var cols = ['-4', '-3', '-2', '-1', '0', '+1', '+2', '+3', '+4'];
+    var gridHTML = '';
     
-    cols.forEach(col => {
-        gridHTML += `<div class="grid-col"><div class="col-header">${col}</div></div>`;
+    cols.forEach(function(col) {
+        gridHTML += '<div class="grid-col"><div class="col-header">' + col + '</div></div>';
     });
     
     $('#grid-container').html(gridHTML);
