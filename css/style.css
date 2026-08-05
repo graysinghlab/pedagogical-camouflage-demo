@@ -20,7 +20,7 @@ body {
     padding: 30px;
     border-radius: 8px;
     box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-    max-width: 1100px;
+    max-width: 1200px;
     margin: 0 auto;
 }
 
@@ -64,7 +64,7 @@ button:hover { background-color: #219150; }
 .bin-neutral { background-color: #95a5a6; }
 .bin-agree { background-color: #2980b9; }
 
-/* Card Pool Styling */
+/* Sandbox Pool Styling */
 .card-pool-wrapper {
     background: #f8f9fa;
     padding: 15px;
@@ -85,19 +85,21 @@ button:hover { background-color: #219150; }
 }
 
 .pool-card {
+    position: relative;
     background: #ffffff;
     border: 1px solid #ced4da;
     border-radius: 4px;
-    padding: 6px 10px;
+    padding: 6px 24px 6px 10px;
     font-size: 12px;
     cursor: pointer;
-    max-width: 220px;
+    max-width: 200px;
     box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    user-select: none;
 }
 
 .pool-card.selected {
-    border: 2px solid #e67e22;
-    background-color: #fef9e7;
+    border: 2px solid #e67e22 !important;
+    background-color: #fef9e7 !important;
 }
 
 .pool-card .tag {
@@ -112,6 +114,29 @@ button:hover { background-color: #219150; }
 .bin-neutral .tag { background: #95a5a6; }
 .bin-agree .tag { background: #2980b9; }
 
+/* Remove button on cards */
+.remove-btn {
+    display: none;
+    position: absolute;
+    top: 2px;
+    right: 4px;
+    font-weight: bold;
+    color: #e74c3c;
+    font-size: 12px;
+    padding: 0 4px;
+    cursor: pointer;
+}
+
+.col-cards .remove-btn {
+    display: inline-block;
+}
+
+.remove-btn:hover {
+    color: #c0392b;
+    background: #fadbd8;
+    border-radius: 50%;
+}
+
 /* Grid Layout Styling */
 .grid-layout {
     display: flex;
@@ -125,8 +150,8 @@ button:hover { background-color: #219150; }
     border: 2px dashed #aed6f1;
     border-radius: 4px;
     flex: 1;
-    min-width: 100px;
-    min-height: 350px;
+    min-width: 105px;
+    min-height: 380px;
     padding: 5px;
     cursor: pointer;
 }
@@ -151,5 +176,4 @@ button:hover { background-color: #219150; }
 
 .form-group { margin-bottom: 20px; }
 .form-group label { display: block; font-weight: bold; margin-bottom: 8px; }
-textarea { width: 100%; padding: 10px; border-radius: 4px; border: 1px solid #ccc; }lock; font-weight: bold; margin-bottom: 8px; }
 textarea { width: 100%; padding: 10px; border-radius: 4px; border: 1px solid #ccc; }
